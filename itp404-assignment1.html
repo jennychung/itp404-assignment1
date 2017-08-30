@@ -1,0 +1,166 @@
+<html>
+<head>
+    
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Roboto" rel="stylesheet">
+    
+    <style>
+    
+    
+    .loader,
+.loader:before,
+.loader:after {
+  background: #4c4c4c;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #4c4c4c;
+  text-indent: -9999em;
+  margin: 88px auto;
+    margin-top:20%;
+    margin-left:40%;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+        
+        #heading{
+            text-align: center;
+            font-size: 72pt;
+            margin-top:10%;
+          
+            
+        font-family: 'Arvo', serif;
+        }
+
+        #subhead{
+              margin-bottom: 4%;
+            font-size: 12pt;
+            text-align: center;
+            font-family: 'Arvo', serif;
+            font-style: italic;
+            margin-top: -0.5%;
+            color: darkgrey;
+        }
+        
+        #results{
+            margin-left:10%;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom:15%;
+        }
+    
+
+        
+    </style>
+    
+    
+</head>
+<body>
+    <script src="jquery-3.2.1.js"> </script>
+    <script>
+        
+        function fetchPostsForSubreddit(subreddit){
+            return $.getJSON('https://www.reddit.com/r/' + subreddit + '.json')
+            
+        };
+        
+    
+//        $('#results').innerHTML =  '<div class="loader"> Loading... </div>';
+        
+        
+        setTimeout(function(){
+
+            
+            
+            fetchPostsForSubreddit('Showerthoughts').then(function(results){
+//            console.log(results);
+            
+        var data = results.data.children;
+        document.querySelector("#results").innerHTML = " ";
+            
+                document.querySelector("#heading").innerHTML = "Reddit";
+                document.querySelector("#subhead").innerHTML = "showerthoughts";
+                
+        for (var i=0; i<data.length; i++){
+           
+            document.querySelector("#results").innerHTML+= " <br>";
+            document.querySelector("#results").innerHTML+= "<li>" + data[i].data.title + "</li>";
+        }
+        
+            
+            $("#results").text(results.title);
+            
+            
+        });
+            
+            
+            
+}, 500);
+        
+       
+        
+      
+        
+        
+        
+        
+        
+    </script>
+    
+     <div id="heading"> </div>
+    <div id="subhead"> </div>
+    
+    <ul id= "results"> 
+        
+        <div class="loader"> Loading... </div>
+        
+    </ul>
+    
+
+    
+    </body>
+</html>
